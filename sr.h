@@ -1,0 +1,16 @@
+#ifndef SR_H
+#define SR_H
+
+extern void A_init(void);
+extern void B_init(void);
+extern void A_output(struct msg);
+extern void B_input(struct pkt);
+extern void A_input(struct pkt);
+extern void A_timerinterrupt(void);
+
+/* For bi-directional extension (not used in this assignment) */
+#define BIDIRECTIONAL 0  /* 0 = unidirectional A->B, 1 = bidirectional (not used) */
+extern void B_output(struct msg);
+extern void B_timerinterrupt(void);
+
+#endif
