@@ -38,4 +38,3 @@ extern void starttimer(int, double);
 
 /* stop timer at A or B (int) */
 extern void stoptimer(int);               
-
