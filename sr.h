@@ -1,25 +1,24 @@
 #ifndef SR_H
 #define SR_H
 
-#include "emulator.h"
+/* 前置声明，避免重复定义结构体 */
+struct msg;
+struct pkt;
 
-/* 用 typedef 兼容 C90 的 bool 类型 */
-typedef enum { false = 0, true = 1 } bool;
-
-/* === A 端函数 === */
+/* A 端接口 */
 void A_init(void);
 void A_output(struct msg message);
 void A_input(struct pkt packet);
 void A_timerinterrupt(void);
 
-/* === B 端函数 === */
+/* B 端接口 */
 void B_init(void);
 void B_input(struct pkt packet);
 void B_output(struct msg message);
 void B_timerinterrupt(void);
 
-/* === 工具函数 === */
+/* 工具函数 */
 int ComputeChecksum(struct pkt packet);
-bool IsCorrupted(struct pkt packet);
+int IsCorrupted(struct pkt packet);  // 注意：如果你在 .c 里用的是 bool，请改成 int 返回 0/1
 
 #endif /* SR_H */
