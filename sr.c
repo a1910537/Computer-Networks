@@ -1,6 +1,8 @@
+#include <stdlib.h>
 #include <stdio.h>
-#include "sr.h"
+#include <stdbool.h>
 #include "emulator.h"
+#include "sr.h"
 
 #define RTT 16.0
 #define WINDOWSIZE 6
