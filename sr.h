@@ -1,6 +1,8 @@
 #ifndef SR_H
 #define SR_H
 
+#define BIDIRECTIONAL 0
+
 void A_init(void);
 void A_output(struct msg message);
 void A_input(struct pkt packet);
@@ -14,4 +16,4 @@ void B_timerinterrupt(void);
 int ComputeChecksum(struct pkt packet);
 int IsCorrupted(struct pkt packet);
 
-#endif
+#endif /* SR_H */
