@@ -3,26 +3,20 @@
 
 #include "emulator.h"
 
-/* 初始化发送方 */
-extern void A_init(void);
+/* === 发送方 A 的函数 === */
+void A_init(void);                  // 初始化发送方
+void A_output(struct msg message);  // 应用层给发送方消息
+void A_input(struct pkt packet);    // 收到 ACK
+void A_timerinterrupt(void);        // 计时器中断（触发重传）
 
-/* 初始化接收方 */
-extern void B_init(void);
+/* === 接收方 B 的函数 === */
+void B_init(void);                  // 初始化接收方
+void B_input(struct pkt packet);    // 收到数据包
+void B_output(struct msg message);  // 不使用，但必须定义（用于双向）
+void B_timerinterrupt(void);        // 不使用，但必须定义（用于双向）
 
-/* 发送方从应用层收到消息 */
-extern void A_output(struct msg);
-
-/* 发送方从网络层收到 ACK */
-extern void A_input(struct pkt);
-
-/* 发送方计时器中断 */
-extern void A_timerinterrupt(void);
-
-/* 接收方从网络层收到数据包 */
-extern void B_input(struct pkt);
-
-/* 以下函数用于双向通信扩展，本项目未使用 */
-extern void B_output(struct msg);
-extern void B_timerinterrupt(void);
+/* === 辅助函数 === */
+int ComputeChecksum(struct pkt packet);  // 计算校验和
+bool IsCorrupted(struct pkt packet);     // 判断是否损坏
 
 #endif /* SR_H */
