@@ -14,6 +14,7 @@ Put local variable declarations such as int seq at the top of
 the function to avoid the compilation warning of declaration 
 after statement in C90 mode, ensuring that the code passes without warnings under ISO C90.
 */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -140,21 +141,14 @@ void A_timerinterrupt(void)
 {
     int seq;  /* sequence to retransmit */
     if (TRACE > 0)
-        printf("----A: time out,resend packets!
-");
+        printf("----A: time out,resend packets!\n");
     seq = base;
     if (used[seq] && !acked[seq]) {
         if (TRACE > 0)
-            printf("---A: resending packet %d
-", buffer[seq].seqnum);
+            printf("---A: resending packet %d\n", buffer[seq].seqnum);
         tolayer3(A, buffer[seq]);
         packets_resent++;
     }
-    starttimer(A, RTT);
-}
-seq = (seq + 1) % SEQSPACE;
-    }
-
     starttimer(A, RTT);
 }
 
@@ -197,8 +191,7 @@ void B_input(struct pkt packet)
 
     packets_received++;
     if (TRACE > 0)
-        printf("----B: packet %d is correctly received, send ACK!
-", seq);
+        printf("----B: packet %d is correctly received, send ACK!\n", seq);
     if (!received[seq]) {
         recv_buffer[seq] = packet;
         received[seq]    = true;
@@ -218,23 +211,6 @@ void B_input(struct pkt packet)
     for (i = 0; i < 20; i++)
         sendpkt.payload[i] = '0';
     sendpkt.checksum  = ComputeChecksum(sendpkt);
-    tolayer3(B, sendpkt);
-}
-}
-        }
-    }
-    else {
-        if (TRACE > 0)
-            printf("----B: packet %d is correctly received, send ACK!\n", seq);
-    }
-
-    /* send ACK */
-    sendpkt.acknum = seq;
-    sendpkt.seqnum = B_nextseqnum;
-    B_nextseqnum = (B_nextseqnum + 1) % 2;
-    for (i = 0; i < 20; i++)
-        sendpkt.payload[i] = '0';
-    sendpkt.checksum = ComputeChecksum(sendpkt);
     tolayer3(B, sendpkt);
 }
 
