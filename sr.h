@@ -1,19 +1,11 @@
-#ifndef SR_H
-#define SR_H
+extern void A_init(void);
+extern void B_init(void);
+extern void A_input(struct pkt);
+extern void B_input(struct pkt);
+extern void A_output(struct msg);
+extern void A_timerinterrupt(void);
 
-#define BIDIRECTIONAL 0
-
-void A_init(void);
-void A_output(struct msg message);
-void A_input(struct pkt packet);
-void A_timerinterrupt(void);
-
-void B_init(void);
-void B_input(struct pkt packet);
-void B_output(struct msg message);
-void B_timerinterrupt(void);
-
-int ComputeChecksum(struct pkt packet);
-int IsCorrupted(struct pkt packet);
-
-#endif /* SR_H */
+/* included for extension to bidirectional communication */
+#define BIDIRECTIONAL 0       /*  0 = A->B  1 =  A<->B */
+extern void B_output(struct msg);
+extern void B_timerinterrupt(void);
